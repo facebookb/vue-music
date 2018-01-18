@@ -9,7 +9,7 @@
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img width="100%" height="100%" :src="currentSong.image">
-        </div>
+        </div>//播放页面背景
         <div class="top">
           <div class="back" @click="back">
             <i class="icon-back"></i>
@@ -95,11 +95,12 @@
       </div>
     </transition>
     <playlist ref="playlist"></playlist>
+    <!--h5标签 音乐控制-->
     <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime"
            @ended="end"></audio>
   </div>
 </template>
-
+// import animations from 'create-keyframe-animation' 使用JavaScript在浏览器中动态生成CSS关键帧动画。
 <script type="text/ecmascript-6">
   import {mapGetters, mapMutations, mapActions} from 'vuex'
   import animations from 'create-keyframe-animation'
@@ -114,7 +115,6 @@
 
   const transform = prefixStyle('transform')
   const transitionDuration = prefixStyle('transitionDuration')
-
   export default {
     mixins: [playerMixin],
     data() {
