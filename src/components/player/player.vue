@@ -9,7 +9,7 @@
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img width="100%" height="100%" :src="currentSong.image">
-        </div>//播放页面背景
+        </div><!--//播放页面背景-->
         <div class="top">
           <div class="back" @click="back">
             <i class="icon-back"></i>
@@ -51,6 +51,7 @@
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
             <div class="progress-bar-wrapper">
+              <!-- 播放进度条 -->
               <progress-bar :percent="percent" @percentChange="onProgressBarChange"></progress-bar>
             </div>
             <span class="time time-r">{{format(currentSong.duration)}}</span>
@@ -113,8 +114,8 @@
   import {playerMixin} from 'common/js/mixin'
   import Playlist from 'components/playlist/playlist'
 
-  const transform = prefixStyle('transform')
-  const transitionDuration = prefixStyle('transitionDuration')
+  const transform = prefixStyle('transform') /* 返回webkitTransform */
+  const transitionDuration = prefixStyle('transitionDuration')/* 返回webkitTransitionDuration */
   export default {
     mixins: [playerMixin],
     data() {
