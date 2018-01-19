@@ -5,7 +5,6 @@
                 @after-enter="afterEnter"
                 @leave="leave"
                 @after-leave="afterLeave"
-    >
       <!--
     methods: {
   // 过渡进入
@@ -67,10 +66,10 @@
               <div class="cd" :class="cdCls">
                 <img class="image" :src="currentSong.image">
               </div>
-            </div>
+            </div><!--歌曲图片-->
             <div class="playing-lyric-wrapper">
               <div class="playing-lyric">{{playingLyric}}</div>
-            </div>
+            </div><!--歌曲歌词-->
           </div>
           <scroll class="middle-r" ref="lyricList" :data="currentLyric && currentLyric.lines">
             <div class="lyric-wrapper">
@@ -135,7 +134,7 @@
         </div>
       </div>
     </transition>  <!--缩小版的播放界面-->
-    <playlist ref="playlist"></playlist>
+    <playlist ref="playlist"></playlist><!--播放列表-->
     <!--h5标签 音乐控制-->
     <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime"
            @ended="end"></audio>
@@ -150,10 +149,16 @@
   import ProgressCircle from 'base/progress-circle/progress-circle'
   import {playMode} from 'common/js/config'
   import Lyric from 'lyric-parser'
+  /*
+  * lyric-parser解析歌词
+  * //播放歌词play()
+  * //暂停歌词stop()
+  * //歌词跳转seek(startTime)
+  * //切换播放/暂停状态toggelePlay()
+  * */
   import Scroll from 'base/scroll/scroll'
-  import {playerMixin} from 'common/js/mixin'
+  import {playerMixin} from 'common/js/mixin'/* 混入 */
   import Playlist from 'components/playlist/playlist'
-
   const transform = prefixStyle('transform') /* 返回webkitTransform */
   const transitionDuration = prefixStyle('transitionDuration')/* 返回webkitTransitionDuration */
   export default {
@@ -387,8 +392,15 @@
          IE 不支持这些属性。它用 document.documentElement 或 document.body （与 IE 的版本相关）的 clientWidth 和 clientHeight 属性作为替代。
         * */
         const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
-        this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
+        /*
+        *max() 方法可返回两个指定的数中带有较大的值的那个数。
+        *min() 方法可返回指定的数字中带有最低值的数字。
+        * offsetWidth 是一个小于等于0的负数
+        * */
+        this.touch.percent = Math.abs(offsetWidth / window.innerWidth) /* 滑动的百分比 */
         this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
+//        console.log(this.$refs.lyricList.$el) // dom节点
+//        console.log(this.$refs.lyricList)// vm实例
         this.$refs.lyricList.$el.style[transitionDuration] = 0
         this.$refs.middleL.style.opacity = 1 - this.touch.percent
         this.$refs.middleL.style[transitionDuration] = 0
