@@ -7,6 +7,9 @@
     </svg>
     <slot></slot>
   </div>
+  <!--暂停键-->
+  <!--HTML5 内联 SVG-->
+  <!--stroke-dasharray属性用来设置描边的点划线的图案范式。就是设置实线和虚线的宽度-->
 </template>
 
 <script type="text/ecmascript-6">

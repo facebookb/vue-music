@@ -6,6 +6,46 @@
                 @leave="leave"
                 @after-leave="afterLeave"
     >
+      <!--
+    methods: {
+  // 过渡进入
+  // 设置过渡进入之前的组件状态
+  beforeEnter: function (el) {
+    // ...
+  },
+  // 设置过渡进入完成时的组件状态
+  enter: function (el, done) {
+    // ...
+    done()
+  },
+  // 设置过渡进入完成之后的组件状态
+  afterEnter: function (el) {
+    // ...
+  },
+  enterCancelled: function (el) {
+    // ...
+  },
+  // 过渡离开
+  // 设置过渡离开之前的组件状态
+  beforeLeave: function (el) {
+    // ...
+  },
+  // 设置过渡离开完成时地组件状态
+  leave: function (el, done) {
+    // ...
+    done()
+  },
+  // 设置过渡离开完成之后的组件状态
+  afterLeave: function (el) {
+    // ...
+  },
+  // leaveCancelled 只用于 v-show 中
+  leaveCancelled: function (el) {
+    // ...
+  }
+}
+    -->
+      <!--name="normal" name - string，用于自动生成 CSS 过渡类名。例如：name: 'fade' 将自动拓展为.fade-enter，.fade-enter-active等。默认类名为 "v"-->
       <div class="normal-player" v-show="fullScreen">
         <div class="background">
           <img width="100%" height="100%" :src="currentSong.image">
@@ -41,12 +81,12 @@
                    v-for="(line,index) in currentLyric.lines">{{line.txt}}</p>
               </div>
             </div>
-          </scroll>
+          </scroll><!--歌词滚动-->
         </div>
         <div class="bottom">
           <div class="dot-wrapper">
-            <span class="dot" :class="{'active':currentShow==='cd'}"></span>
-            <span class="dot" :class="{'active':currentShow==='lyric'}"></span>
+            <span class="dot" :class="{'active':currentShow==='cd'}"></span>   <!--cd页面图标-->
+            <span class="dot" :class="{'active':currentShow==='lyric'}"></span><!--歌词页面图标-->
           </div>
           <div class="progress-wrapper">
             <span class="time time-l">{{format(currentTime)}}</span>
@@ -58,24 +98,24 @@
           </div>
           <div class="operators">
             <div class="icon i-left" @click="changeMode">
-              <i :class="iconMode"></i>
-            </div>
+              <i :class="iconMode"></i><!--动态绑定属性-->
+            </div><!--播放模式-->
             <div class="icon i-left" :class="disableCls">
               <i @click="prev" class="icon-prev"></i>
-            </div>
+            </div><!--上一首-->
             <div class="icon i-center" :class="disableCls">
               <i @click="togglePlaying" :class="playIcon"></i>
-            </div>
+            </div><!--暂停-->
             <div class="icon i-right" :class="disableCls">
               <i @click="next" class="icon-next"></i>
-            </div>
+            </div><!--下一首-->
             <div class="icon i-right">
               <i @click="toggleFavorite(currentSong)" class="icon" :class="getFavoriteIcon(currentSong)"></i>
-            </div>
+            </div><!--收藏-->
           </div>
         </div>
       </div>
-    </transition>
+    </transition><!--播放界面-->
     <transition name="mini">
       <div class="mini-player" v-show="!fullScreen" @click="open">
         <div class="icon">
@@ -94,7 +134,7 @@
           <i class="icon-playlist"></i>
         </div>
       </div>
-    </transition>
+    </transition>  <!--缩小版的播放界面-->
     <playlist ref="playlist"></playlist>
     <!--h5标签 音乐控制-->
     <audio ref="audio" :src="currentSong.url" @play="ready" @error="error" @timeupdate="updateTime"
@@ -120,7 +160,7 @@
     mixins: [playerMixin],
     data() {
       return {
-        songReady: false,
+        songReady: false, /* 默认暂停 */
         currentTime: 0,
         radius: 32,
         currentLyric: null,
@@ -156,10 +196,10 @@
     },
     methods: {
       back() {
-        this.setFullScreen(false)
+        this.setFullScreen(false) /* 退出全屏 */
       },
       open() {
-        this.setFullScreen(true)
+        this.setFullScreen(true)  /* 进入全屏 */
       },
       enter(el, done) {
         const {x, y, scale} = this._getPosAndScale()
@@ -204,7 +244,7 @@
       togglePlaying() {
         if (!this.songReady) {
           return
-        }
+        }/* 如果 */
         this.setPlayingState(!this.playing)
         if (this.currentLyric) {
           this.currentLyric.togglePlay()
@@ -318,27 +358,34 @@
         this.$refs.playlist.show()
       },
       middleTouchStart(e) {
-        this.touch.initiated = true
-        // 用来判断是否是一次移动
+        this.touch.initiated = true// 用来判断是否是一次移动
         this.touch.moved = false
-        const touch = e.touches[0]
+        const touch = e.touches[0] // touch坐标参数
         this.touch.startX = touch.pageX
         this.touch.startY = touch.pageY
-      },
+//        console.log(this.touch.startX)
+//        console.log(this.touch.startY)
+      }, // middleTouchStart实现初始位置记录功能
       middleTouchMove(e) {
         if (!this.touch.initiated) {
           return
-        }
+        }/* 如果滑动结束则不执行此方法 */
         const touch = e.touches[0]
         const deltaX = touch.pageX - this.touch.startX
-        const deltaY = touch.pageY - this.touch.startY
+        const deltaY = touch.pageY - this.touch.startY // 计算滑动距离
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
           return
-        }
+        } // Math.abs可以求绝对值 为什么需要y坐标比x坐标小
         if (!this.touch.moved) {
           this.touch.moved = true
         }
-        const left = this.currentShow === 'cd' ? 0 : -window.innerWidth
+        const left = this.currentShow === 'cd' ? 0 : -window.innerWidth /* 如果是cd页面则返回0否则返回-window.innerWidth */
+        /*
+        * 定义和用法
+         只读属性，声明了窗口的文档显示区的高度和宽度，以像素计。
+         这里的宽度和高度不包括菜单栏、工具栏以及滚动条等的高度。
+         IE 不支持这些属性。它用 document.documentElement 或 document.body （与 IE 的版本相关）的 clientWidth 和 clientHeight 属性作为替代。
+        * */
         const offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
         this.touch.percent = Math.abs(offsetWidth / window.innerWidth)
         this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px,0,0)`
@@ -438,6 +485,10 @@
         if (newVal) {
           setTimeout(() => {
             this.$refs.lyricList.refresh()
+            /*
+            * 获取歌词页面的DOM节点
+            *歌词滚动
+            * */
           }, 20)
         }
       }

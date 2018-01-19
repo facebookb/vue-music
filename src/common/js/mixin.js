@@ -30,6 +30,12 @@ export const playerMixin = {
   computed: {
     iconMode() {
       return this.mode === playMode.sequence ? 'icon-sequence' : this.mode === playMode.loop ? 'icon-loop' : 'icon-random'
+      /*
+      * 两层的三目运算符
+      * 如果this.mode是顺序 则返回icon-sequence的icon
+      * 如果this.mode是循环 则返回icon-loop的icon
+      * 否则返回icon-random
+      * */
     },
     ...mapGetters([
       'sequenceList',
