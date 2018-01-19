@@ -9,7 +9,7 @@
                 <img class="needsclick" @load="loadImage" :src="item.picUrl">
               </a>
             </div>
-          </slider>
+          </slider><!--轮播图-->
         </div>
         <div class="recommend-list">
           <h1 class="list-title">热门歌单推荐</h1>
@@ -17,20 +17,20 @@
             <li @click="selectItem(item)" v-for="item in discList" class="item">
               <div class="icon">
                 <img width="60" height="60" v-lazy="item.imgurl">
-              </div>
+              </div><!--歌曲背景图-->
               <div class="text">
                 <h2 class="name" v-html="item.creator.name"></h2>
                 <p class="desc" v-html="item.dissname"></p>
-              </div>
+              </div><!--歌曲名称和描述-->
             </li>
           </ul>
         </div>
       </div>
       <div class="loading-container" v-show="!discList.length">
         <loading></loading>
-      </div>
+      </div><!--loading 无数据的时候显示-->
     </scroll>
-    <router-view></router-view>
+    <router-view></router-view><!--子路由 -->
   </div>
 </template>
 

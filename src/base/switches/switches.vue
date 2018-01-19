@@ -4,6 +4,7 @@
         @click="switchItem(index)">
       <span>{{item.name}} </span>
     </li>
+    <!--依据switches-->
   </ul>
 </template>
 

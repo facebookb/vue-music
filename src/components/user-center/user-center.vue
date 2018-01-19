@@ -3,10 +3,10 @@
     <div class="user-center">
       <div class="back" @click="back">
         <i class="icon-back"></i>
-      </div>
+      </div><!--返回按钮-->
       <div class="switches-wrapper">
         <switches @switch="switchItem" :switches="switches" :currentIndex="currentIndex"></switches>
-      </div>
+      </div><!--tab切换-->
       <div ref="playBtn" class="play-btn" @click="random">
         <i class="icon-play"></i>
         <span class="text">随机播放全部</span>
@@ -14,17 +14,17 @@
       <div class="list-wrapper" ref="listWrapper">
         <scroll ref="favoriteList" class="list-scroll" v-if="currentIndex===0" :data="favoriteList">
           <div class="list-inner">
-            <song-list :songs="favoriteList" @select="selectSong"></song-list>
+            <song-list :songs="favoriteList" @select="selectSong"></song-list><!--歌曲列表-->
           </div>
-        </scroll>
+        </scroll><!--我喜欢的-->
         <scroll ref="playList" class="list-scroll" v-if="currentIndex===1" :data="playHistory">
           <div class="list-inner">
             <song-list :songs="playHistory" @select="selectSong"></song-list>
           </div>
-        </scroll>
+        </scroll><!--最近听的-->
       </div>
       <div class="no-result-wrapper" v-show="noResult">
-        <no-result :title="noResultDesc"></no-result>
+        <no-result :title="noResultDesc"></no-result><!--不存在歌曲-->
       </div>
     </div>
   </transition>
@@ -82,7 +82,7 @@
         this.$refs.playList && this.$refs.playList.refresh()
       },
       switchItem(index) {
-        this.currentIndex = index
+        this.currentIndex = index /* 获取currentIndex值 */
       },
       selectSong(song) {
         this.insertSong(new Song(song))
