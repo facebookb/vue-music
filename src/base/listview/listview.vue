@@ -15,17 +15,17 @@
           </li>
         </uL>
       </li>
-    </ul>
+    </ul><!--歌手列表-->
     <div class="list-shortcut" @touchstart.stop.prevent="onShortcutTouchStart" @touchmove.stop.prevent="onShortcutTouchMove"
          @touchend.stop>
       <ul>
         <li v-for="(item, index) in shortcutList" :data-index="index" class="item"
-            :class="{'current':currentIndex===index}">{{item}}
+            :class="{'current':currentIndex===index}">{{item}} <!--后端分的abcdefg...-->
         </li>
       </ul>
     </div>
     <div class="list-fixed" ref="fixed" v-show="fixedTitle">
-      <div class="fixed-title">{{fixedTitle}} </div>
+      <div class="fixed-title">{{fixedTitle}} </div><!--//选中的字母-->
     </div>
     <div v-show="!data.length" class="loading-container">
       <loading></loading>
@@ -51,7 +51,7 @@
     computed: {
       shortcutList() {
         return this.data.map((group) => {
-          return group.title.substr(0, 1)
+          return group.title.substr(0, 1) /* 返回字母 */
         })
       },
       fixedTitle() {
