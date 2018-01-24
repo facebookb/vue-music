@@ -8,7 +8,7 @@ export function getHotKey() {
     uin: 0,
     needNewCode: 1,
     platform: 'h5'
-  })
+  }) /* 热歌榜 */
 
   return jsonp(url, data, options)
 }

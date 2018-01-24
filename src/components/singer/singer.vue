@@ -88,7 +88,7 @@
         return hot.concat(ret)
       },
       ...mapMutations({
-        setSinger: 'SET_SINGER'
+        setSinger: 'SET_SINGER' /* 传递参数给mutations */
       })
     },
     components: {

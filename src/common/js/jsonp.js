@@ -13,7 +13,7 @@ export default function jsonp(url, data, option) {
     })
   })
 }
-
+/* 自己封装一个jsonp */
 export function param(data) {
   let url = ''
   for (var k in data) {

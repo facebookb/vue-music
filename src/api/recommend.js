@@ -9,7 +9,7 @@ export function getRecommend() {
     platform: 'h5',
     uin: 0,
     needNewCode: 1
-  })
+  })/* 推荐 */
 
   return jsonp(url, data, options)
 }

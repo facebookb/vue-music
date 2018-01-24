@@ -2,7 +2,7 @@ import jsonp from 'common/js/jsonp'
 import {commonParams, options} from './config'
 
 export function getTopList() {
-  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg'
+  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_myqq_toplist.fcg' /* 排行榜 */
 
   const data = Object.assign({}, commonParams, {
     uin: 0,
@@ -14,7 +14,7 @@ export function getTopList() {
 }
 
 export function getMusicList(topid) {
-  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg'
+  const url = 'https://c.y.qq.com/v8/fcg-bin/fcg_v8_toplist_cp.fcg' /* 音乐列表 */
 
   const data = Object.assign({}, commonParams, {
     topid,

@@ -1,4 +1,4 @@
-import storage from 'good-storage'
+import storage from 'good-storage' /* storge管理 */
 
 const SEARCH_KEY = '__search__'
 const SEARCH_MAX_LEN = 15

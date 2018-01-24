@@ -4,7 +4,7 @@ export const commonParams = {
   outCharset: 'utf-8',
   notice: 0,
   format: 'jsonp'
-}
+}/* 请求头 */
 
 export const options = {
   param: 'jsonpCallback'

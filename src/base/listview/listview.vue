@@ -12,7 +12,7 @@
           <li @click="selectItem(item)" v-for="item in group.items" class="list-group-item">
             <img class="avatar" v-lazy="item.avatar">
             <span class="name">{{item.name}}</span>
-          </li>
+          </li><!--跳向页面id-->
         </uL>
       </li>
     </ul><!--歌手列表-->
